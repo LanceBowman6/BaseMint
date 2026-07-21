@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Mint one free daily NFT on Base and earn reward points.",
   metadataBase: new URL("https://basemint.app"),
   other: {
-    "base:app_id": "basemint-daily-nft",
+    "base:app_id": "6a5f1b5d078f6baf9ef30004",
   },
 };
 
