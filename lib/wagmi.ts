@@ -73,7 +73,9 @@ function getOkxProvider(window?: Parameters<OkxProvider>[0]) {
 export const wagmiConfig = createConfig({
   chains: [selectedChain],
   connectors: [
-    baseAccount(),
+    baseAccount({
+      appName: APP_NAME,
+    }),
     coinbaseWallet({
       appName: APP_NAME,
     }),
