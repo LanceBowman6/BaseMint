@@ -49,6 +49,13 @@ const views = [
 
 type ViewId = (typeof views)[number]["id"];
 
+const walletLabels = new Map([
+  ["coinbasewallet", "Coinbase Wallet"],
+  ["metamask", "MetaMask"],
+  ["okxwallet", "OKX Wallet"],
+  ["okx wallet", "OKX Wallet"],
+]);
+
 export default function Page() {
   return (
     <Suspense fallback={<main className="mx-auto min-h-screen w-full max-w-md px-4 pt-6 text-white">Loading BaseMint...</main>}>
@@ -76,6 +83,17 @@ function HomePage() {
 
   const referrer = normalizeRef(searchParams.get("ref"), address);
   const contractReady = CONTRACT_ADDRESS !== ZERO_ADDRESS && isAddress(CONTRACT_ADDRESS);
+  const walletConnectors = connectors
+    .map((connector) => {
+      const normalizedName = connector.name.toLowerCase();
+      const label = walletLabels.get(normalizedName);
+      return label ? { connector, label } : undefined;
+    })
+    .filter((item): item is { connector: (typeof connectors)[number]; label: string } => Boolean(item))
+    .filter(
+      (item, index, list) =>
+        list.findIndex((candidate) => candidate.label === item.label) === index,
+    );
 
   const { data: reads, refetch } = useReadContracts({
     contracts: [
@@ -205,13 +223,13 @@ function HomePage() {
 
             {!isConnected ? (
               <Panel className="space-y-3 p-4">
-                {connectors.map((connector) => (
+                {walletConnectors.map(({ connector, label }) => (
                   <button
                     key={connector.uid}
                     onClick={() => connect({ connector })}
                     className="flex w-full items-center justify-between rounded-lg border border-cyan-200/15 bg-white/[0.04] px-4 py-3 text-left font-bold text-white"
                   >
-                    <span>{connector.name}</span>
+                    <span>{label}</span>
                     {isConnecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}
                   </button>
                 ))}

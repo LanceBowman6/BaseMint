@@ -38,7 +38,6 @@ export const wagmiConfig = createConfig({
     }),
     metaMask(),
     injected({ target: "okxWallet" as "okxWallet" }),
-    injected(),
   ],
   transports: {
     [selectedChain.id]: http(),
