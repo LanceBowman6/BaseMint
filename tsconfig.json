@@ -37,7 +37,8 @@
     "lib/**/*.tsx",
     "next-env.d.ts",
     "next.config.ts",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

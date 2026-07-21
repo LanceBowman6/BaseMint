@@ -3,7 +3,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createConfig, http } from "wagmi";
 import { coinbaseWallet } from "wagmi/connectors/coinbaseWallet";
-import { injected } from "wagmi/connectors/injected";
+import { injected, type InjectedParameters } from "wagmi/connectors/injected";
 import { metaMask } from "wagmi/connectors/metaMask";
 import { base, baseSepolia } from "wagmi/chains";
 import { defineChain } from "viem";
@@ -30,6 +30,45 @@ const dataSuffix = builderCode
   ? Attribution.toDataSuffix({ codes: [builderCode] })
   : undefined;
 
+type OkxTarget = Extract<NonNullable<InjectedParameters["target"]>, { id: string }>;
+type OkxProvider = Extract<OkxTarget["provider"], (...args: never[]) => unknown>;
+type OkxInjectedProvider = ReturnType<OkxProvider>;
+type OkxWindow = Parameters<OkxProvider>[0] &
+  typeof globalThis & {
+    ethereum?: (OkxInjectedProvider & { providers?: OkxInjectedProvider[] }) | undefined;
+    okxWallet?: OkxInjectedProvider | { ethereum?: OkxInjectedProvider };
+    okxwallet?: OkxInjectedProvider | { ethereum?: OkxInjectedProvider };
+  };
+
+function getOkxProvider(window?: Parameters<OkxProvider>[0]) {
+  const okxWindow = window as OkxWindow | undefined;
+  const directProvider = okxWindow?.okxwallet ?? okxWindow?.okxWallet;
+
+  if (directProvider && "request" in directProvider) {
+    return directProvider;
+  }
+
+  if (directProvider && "ethereum" in directProvider) {
+    return directProvider.ethereum;
+  }
+
+  const ethereum = okxWindow?.ethereum;
+  const providers = ethereum?.providers ?? [];
+  const provider = providers.find(
+    (item) => "isOkxWallet" in item || "isOKExWallet" in item,
+  );
+
+  if (provider) {
+    return provider;
+  }
+
+  if (ethereum && ("isOkxWallet" in ethereum || "isOKExWallet" in ethereum)) {
+    return ethereum;
+  }
+
+  return undefined;
+}
+
 export const wagmiConfig = createConfig({
   chains: [selectedChain],
   connectors: [
@@ -37,7 +76,14 @@ export const wagmiConfig = createConfig({
       appName: APP_NAME,
     }),
     metaMask(),
-    injected({ target: "okxWallet" as "okxWallet" }),
+    injected({
+      target: {
+        id: "okxWallet",
+        name: "OKX Wallet",
+        provider: getOkxProvider,
+      },
+      unstable_shimAsyncInject: 1_000,
+    }),
   ],
   transports: {
     [selectedChain.id]: http(),

@@ -77,6 +77,7 @@ function HomePage() {
     points: number;
   }>();
   const [isConfirming, setIsConfirming] = useState(false);
+  const [walletError, setWalletError] = useState<string>();
 
   const searchParams = useSearchParams();
   const { address, isConnected, chainId } = useAccount();
@@ -182,6 +183,21 @@ function HomePage() {
     }
   }
 
+  async function handleConnect(connector: (typeof connectors)[number]) {
+    setWalletError(undefined);
+
+    try {
+      await connect({ connector });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Wallet connection failed.";
+      setWalletError(
+        message.toLowerCase().includes("provider")
+          ? `${connector.name} is not available in this browser.`
+          : message,
+      );
+    }
+  }
+
   const primaryDisabled = !contractReady || !isConnected || mintedToday || isWriting;
 
   return (
@@ -231,13 +247,18 @@ function HomePage() {
                 {walletConnectors.map(({ connector, label }) => (
                   <button
                     key={connector.uid}
-                    onClick={() => connect({ connector })}
+                    onClick={() => void handleConnect(connector)}
                     className="flex h-16 w-full flex-col items-center justify-center gap-1 rounded-lg border border-cyan-200/15 bg-white/[0.04] px-2 text-center text-[11px] font-bold leading-tight text-white sm:h-14 sm:flex-row sm:justify-between sm:px-4 sm:text-sm"
                   >
                     <span>{label}</span>
                     {isConnecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}
                   </button>
                 ))}
+                {walletError && (
+                  <p className="col-span-3 rounded-lg border border-amber-300/25 bg-amber-300/10 p-2 text-xs text-amber-100">
+                    {walletError}
+                  </p>
+                )}
               </Panel>
             ) : (
               <button

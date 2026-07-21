@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit -p tsconfig.check.json",
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:base": "hardhat run scripts/deploy.ts --network base",
