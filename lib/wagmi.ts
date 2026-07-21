@@ -25,7 +25,7 @@ const selectedChain =
           },
         });
 
-const builderCode = process.env.NEXT_PUBLIC_BUILDER_CODE;
+const builderCode = process.env.NEXT_PUBLIC_BUILDER_CODE?.trim();
 const dataSuffix = builderCode
   ? Attribution.toDataSuffix({ codes: [builderCode] })
   : undefined;
