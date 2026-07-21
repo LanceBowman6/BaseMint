@@ -50,7 +50,11 @@ const views = [
 type ViewId = (typeof views)[number]["id"];
 
 const walletLabels = new Map([
+  ["coinbase wallet", "Coinbase Wallet"],
+  ["coinbase wallet sdk", "Coinbase Wallet"],
+  ["coinbasewalletsdk", "Coinbase Wallet"],
   ["coinbasewallet", "Coinbase Wallet"],
+  ["coinbase", "Coinbase Wallet"],
   ["metamask", "MetaMask"],
   ["okxwallet", "OKX Wallet"],
   ["okx wallet", "OKX Wallet"],
@@ -86,7 +90,8 @@ function HomePage() {
   const walletConnectors = connectors
     .map((connector) => {
       const normalizedName = connector.name.toLowerCase();
-      const label = walletLabels.get(normalizedName);
+      const normalizedId = connector.id.toLowerCase();
+      const label = walletLabels.get(normalizedName) ?? walletLabels.get(normalizedId);
       return label ? { connector, label } : undefined;
     })
     .filter((item): item is { connector: (typeof connectors)[number]; label: string } => Boolean(item))
@@ -180,7 +185,7 @@ function HomePage() {
   const primaryDisabled = !contractReady || !isConnected || mintedToday || isWriting;
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 pb-24 pt-4 sm:max-w-2xl">
+    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 pb-32 pt-4 sm:max-w-2xl">
       <header className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
@@ -205,15 +210,15 @@ function HomePage() {
       <section className="mt-5">
         {activeView === "home" && (
           <div className="space-y-4">
-            <Panel className="overflow-hidden p-4">
-              <div className="relative mx-auto aspect-square max-w-[18rem] overflow-hidden rounded-lg border border-cyan-200/20 bg-[#081828] shadow-glow">
+            <Panel className="overflow-hidden p-3 sm:p-4">
+              <div className="relative mx-auto aspect-square max-w-[14rem] overflow-hidden rounded-lg border border-cyan-200/20 bg-[#081828] shadow-glow sm:max-w-[18rem]">
                 <img src={nftImage} alt="BaseMint daily NFT preview" className="h-full w-full" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                   <p className="text-sm font-bold text-cyan-100">Today&apos;s collectible</p>
                   <p className="text-xs text-slate-300">Mint refreshes every UTC day</p>
                 </div>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
                 <Stat label="Remaining Supply" value={formatNumber(remainingSupply)} />
                 <Stat label="Total Minted" value={formatNumber(totalMinted)} />
                 <Stat label="Reward Points" value={formatNumber(chainPoints || BigInt(user.data?.rewardPoints ?? 0))} />
@@ -222,12 +227,12 @@ function HomePage() {
             </Panel>
 
             {!isConnected ? (
-              <Panel className="space-y-3 p-4">
+              <Panel className="grid grid-cols-3 gap-2 p-3 sm:gap-3 sm:p-4">
                 {walletConnectors.map(({ connector, label }) => (
                   <button
                     key={connector.uid}
                     onClick={() => connect({ connector })}
-                    className="flex w-full items-center justify-between rounded-lg border border-cyan-200/15 bg-white/[0.04] px-4 py-3 text-left font-bold text-white"
+                    className="flex h-16 w-full flex-col items-center justify-center gap-1 rounded-lg border border-cyan-200/15 bg-white/[0.04] px-2 text-center text-[11px] font-bold leading-tight text-white sm:h-14 sm:flex-row sm:justify-between sm:px-4 sm:text-sm"
                   >
                     <span>{label}</span>
                     {isConnecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}

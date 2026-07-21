@@ -14,7 +14,7 @@ export function BottomNav<T extends string>({
   onChange: (value: T) => void;
 }) {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-md border-t border-cyan-200/15 bg-[#06101d]/95 px-3 py-2 backdrop-blur sm:max-w-2xl">
+    <nav className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-md border-t border-cyan-200/15 bg-[#06101d]/95 px-3 pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:max-w-2xl">
       <div className="grid grid-cols-5 gap-1">
         {items.map((item) => {
           const Icon = item.icon;
