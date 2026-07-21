@@ -17,10 +17,10 @@ import {
   useConnect,
   useDisconnect,
   useReadContracts,
-  useWriteContract,
+  useSendTransaction,
 } from "wagmi";
 import { waitForTransactionReceipt } from "wagmi/actions";
-import { isAddress } from "viem";
+import { concatHex, encodeFunctionData, isAddress } from "viem";
 import { useSearchParams } from "next/navigation";
 
 import { baseMintAbi } from "@/lib/abi";
@@ -86,7 +86,7 @@ function HomePage() {
   const { address, isConnected, chainId } = useAccount();
   const { connectors, connect, isPending: isConnecting } = useConnect();
   const { disconnect } = useDisconnect();
-  const { writeContractAsync, isPending: isWriting } = useWriteContract();
+  const { sendTransactionAsync, isPending: isWriting } = useSendTransaction();
   const user = useUserRecord(address);
 
   const referrer = normalizeRef(searchParams.get("ref"), address);
@@ -154,12 +154,16 @@ function HomePage() {
 
     setIsConfirming(true);
     try {
-      const hash = await writeContractAsync({
-        address: CONTRACT_ADDRESS,
+      const functionName = referrer ? "dailyMint" : "mint";
+      const callData = encodeFunctionData({
         abi: baseMintAbi,
-        functionName: referrer ? "dailyMint" : "mint",
+        functionName,
         args: referrer ? [referrer] : undefined,
-        dataSuffix: builderDataSuffix,
+      });
+      const data = builderDataSuffix ? concatHex([callData, builderDataSuffix]) : callData;
+      const hash = await sendTransactionAsync({
+        to: CONTRACT_ADDRESS,
+        data,
       });
 
       const receiptResult = await waitForTransactionReceipt(wagmiConfig, { hash });
