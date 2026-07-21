@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://basemint.app"),
   other: {
     "base:app_id": "6a5f1b5d078f6baf9ef30004",
+    "talentapp:project_verification":
+      "0abee862dd8e3778947c5474f259cfa0587de112e8ed1cd233f9ff9a406ad9ae43cf1495e63be09f171f68dd70d2672a17100ab0e270c1222a0f1d60046f616e",
   },
 };
 
