@@ -1,0 +1,12 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#07111f"/>
+  <rect x="72" y="72" width="1056" height="486" rx="36" fill="#0b1b31" stroke="#1f9fff" stroke-opacity=".45"/>
+  <circle cx="948" cy="188" r="122" fill="#0052ff" fill-opacity=".55"/>
+  <circle cx="948" cy="188" r="74" fill="#0ae5ff" fill-opacity=".2"/>
+  <path d="M888 190c0-44 32-76 76-76h70v42h-70c-20 0-34 14-34 34s14 34 34 34h70v42h-70c-44 0-76-32-76-76Z" fill="white"/>
+  <path d="M982 178h62v24h-62z" fill="white"/>
+  <text x="126" y="216" fill="#8ff5ff" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="4">DAILY BASE NFT</text>
+  <text x="126" y="316" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900">BaseMint</text>
+  <text x="126" y="390" fill="#b8d8ff" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="500">Mint one free NFT every day on Base.</text>
+  <text x="126" y="452" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Daily collectibles • Reward points • Referrals</text>
+</svg>

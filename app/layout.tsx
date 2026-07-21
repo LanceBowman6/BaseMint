@@ -4,9 +4,38 @@ import "./globals.css";
 import { AppProviders } from "@/components/app-providers";
 
 export const metadata: Metadata = {
+  applicationName: "BaseMint",
   title: "BaseMint",
   description: "Mint one free daily NFT on Base and earn reward points.",
-  metadataBase: new URL("https://basemint.app"),
+  metadataBase: new URL("https://basemint-three.vercel.app"),
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  openGraph: {
+    title: "BaseMint",
+    description: "Mint one free daily NFT on Base and earn reward points.",
+    url: "https://basemint-three.vercel.app",
+    siteName: "BaseMint",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "BaseMint daily NFT mint on Base",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BaseMint",
+    description: "Mint one free daily NFT on Base and earn reward points.",
+    images: ["/og-image.svg"],
+  },
   other: {
     "base:app_id": "6a5f1b5d078f6baf9ef30004",
     "talentapp:project_verification":
