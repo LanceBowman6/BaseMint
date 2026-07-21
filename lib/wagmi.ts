@@ -27,7 +27,7 @@ const selectedChain =
         });
 
 const builderCode = process.env.NEXT_PUBLIC_BUILDER_CODE?.trim();
-const dataSuffix = builderCode
+export const builderDataSuffix = builderCode
   ? Attribution.toDataSuffix({ codes: [builderCode] })
   : undefined;
 
@@ -94,7 +94,7 @@ export const wagmiConfig = createConfig({
   },
   ssr: true,
   // ERC-8021 Base Builder Code attribution. Keep writeContract calls under this config.
-  dataSuffix,
+  dataSuffix: builderDataSuffix,
 });
 
 export const queryClient = new QueryClient();

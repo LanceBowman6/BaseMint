@@ -37,7 +37,7 @@ import { Panel } from "@/components/panel";
 import { Stat } from "@/components/stat";
 import { SuccessOverlay } from "@/components/success-overlay";
 import { useUserRecord } from "@/components/use-user-record";
-import { wagmiConfig } from "@/lib/wagmi";
+import { builderDataSuffix, wagmiConfig } from "@/lib/wagmi";
 
 const views = [
   { id: "home", label: "Home", icon: Home },
@@ -159,6 +159,7 @@ function HomePage() {
         abi: baseMintAbi,
         functionName: referrer ? "dailyMint" : "mint",
         args: referrer ? [referrer] : undefined,
+        dataSuffix: builderDataSuffix,
       });
 
       const receiptResult = await waitForTransactionReceipt(wagmiConfig, { hash });
