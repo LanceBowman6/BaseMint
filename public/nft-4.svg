@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#08111e"/>
+  <circle cx="400" cy="400" r="310" fill="#0052ff" opacity=".22"/>
+  <circle cx="400" cy="400" r="230" fill="#22d3ee" opacity=".18"/>
+  <path d="M400 105 656 253v294L400 695 144 547V253z" fill="#07111f" stroke="#22d3ee" stroke-width="16"/>
+  <path d="M400 190 583 295v210L400 610 217 505V295z" fill="#0052ff"/>
+  <text x="400" y="432" text-anchor="middle" font-family="Arial" font-size="96" font-weight="900" fill="#fff">BASE</text>
+</svg>

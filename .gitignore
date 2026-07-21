@@ -1,0 +1,11 @@
+.env
+.env*.local
+.next
+artifacts
+cache
+coverage
+node_modules
+typechain-types
+coverage.json
+*.tsbuildinfo
+vercel.json.tmp

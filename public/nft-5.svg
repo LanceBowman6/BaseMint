@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#06111f"/>
+  <path d="M110 570c100-220 196-330 290-330s190 110 290 330" fill="none" stroke="#0052ff" stroke-width="80" stroke-linecap="round"/>
+  <path d="M175 560c78-155 153-232 225-232s147 77 225 232" fill="none" stroke="#22d3ee" stroke-width="36" stroke-linecap="round"/>
+  <circle cx="400" cy="240" r="90" fill="#e0faff"/>
+  <circle cx="400" cy="240" r="46" fill="#0052ff"/>
+  <text x="400" y="675" text-anchor="middle" font-family="Arial" font-size="56" font-weight="900" fill="#fff">STREAK</text>
+</svg>
