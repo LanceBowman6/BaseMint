@@ -50,6 +50,9 @@ const views = [
 type ViewId = (typeof views)[number]["id"];
 
 const walletLabels = new Map([
+  ["base account", "Base App"],
+  ["baseaccount", "Base App"],
+  ["base", "Base App"],
   ["coinbase wallet", "Coinbase Wallet"],
   ["coinbase wallet sdk", "Coinbase Wallet"],
   ["coinbasewalletsdk", "Coinbase Wallet"],

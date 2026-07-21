@@ -2,6 +2,7 @@
 
 import { QueryClient } from "@tanstack/react-query";
 import { createConfig, http } from "wagmi";
+import { baseAccount } from "wagmi/connectors/baseAccount";
 import { coinbaseWallet } from "wagmi/connectors/coinbaseWallet";
 import { injected, type InjectedParameters } from "wagmi/connectors/injected";
 import { metaMask } from "wagmi/connectors/metaMask";
@@ -72,6 +73,7 @@ function getOkxProvider(window?: Parameters<OkxProvider>[0]) {
 export const wagmiConfig = createConfig({
   chains: [selectedChain],
   connectors: [
+    baseAccount(),
     coinbaseWallet({
       appName: APP_NAME,
     }),
