@@ -21,7 +21,7 @@ This project implements both required Base attribution paths:
 
 After the first Vercel deployment, verify your Builder Code in Base.dev and paste the values here:
 
-- Builder Code placeholder: `NEXT_PUBLIC_BUILDER_CODE=`
+- Builder Code: `NEXT_PUBLIC_BUILDER_CODE=bc_w2tpi4vc`
 - Encoded String placeholder: `0x`
 
 Deploy again after the Builder Code is verified so onchain attribution is active for all future writes.
