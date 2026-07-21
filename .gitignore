@@ -9,3 +9,5 @@ typechain-types
 coverage.json
 *.tsbuildinfo
 vercel.json.tmp
+
+.vercel
